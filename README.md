@@ -1,4 +1,4 @@
 k
 =
 
-It is my,and it is your.
+It is my,and you are my.
