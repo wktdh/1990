@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+        <style type="text/css">
+            li{
+               list-style:none;
+            }
+            ul{
+               margin:0;padding:0;
+            }
+            .clearfix{
+               clear:both;
+            }
+            .hia{
+               margin-left:100px;
+               border:1px solid lightblue;
+               padding:10px;
+               display:inline-block;
+               width:370px;
+            }
+            .big-img{
+               position:relative;
+               display:inline-block;
+               margin-bottom:10px;
+               z-index:0;
+            }
+            .big-img .left{
+            }
+            .left,.right{
+               font-size:40px;
+               position:absolute;
+               top:45%;
+               background-color:gray;
+               color:#fff;
+               padding:5px 0 0;
+               line-height:50px;
+               opacity:0.6;
+               z-index:99;
+               text-align:center;
+               display:inline-block;
+               cursor:pointer;
+            }
+            .big-img .right{
+               right:0;
+            }
+            .small-img{
+               display:inline-block;
+            }
+            .small-img img.active{
+               border:1px solid orange;
+            }
+            .small-img img{
+               float:left;
+               cursor:pointer;
+               padding:1px;
+               width:66px;
+               height:66px;
+               margin:2px;
+               border:1px solid transparent;
+            }
+            .baobao{
+                display:inline-block;
+            }
+            .focus-view{
+               width:370px;
+            }
+        </style>
+</head>
+<body>
+    <div class="hia">
+       <div class="big-img">
+          <span class="left">《</span>
+          <img class="focus-view" src="https://img3.doubanio.com/view/photo/large/public/p2170235250.jpg"/>
+          <span class="right">》</span>
+       </div>
+       <div class="small-img">
+          <img src="https://img3.doubanio.com/view/photo/large/public/p2170235250.jpg" class="active"/>
+          <img src="https://img1.doubanio.com/view/photo/large/public/p2170235527.jpg"/>
+          <img src="https://img3.doubanio.com/view/photo/large/public/p2170236121.jpg"/>
+          <img src="https://img3.doubanio.com/view/photo/large/public/p2369538412.jpg"/>
+          <img src="https://img1.doubanio.com/view/photo/large/public/p2369538399.jpg"/>
+          <div class="clearfix"></div>
+       </div>
+    </div>
+
+    <script type="text/javascript" src="../js/jQuery-v1.8.0.js"></script>
+    <script type="text/javascript">
+        $(function(){
+           $(".small-img img").hover(function(){
+                var current_hover_img = $(this).attr("src");
+                $(".focus-view").attr("src",current_hover_img);
+                $(this).addClass("active").siblings().removeClass("active");
+            });
+           var can_img = $(".small-img img");
+           $(".left").click(function(){
+                for(var i = $(".small-img img").length - 1; i >= 0; i--){
+                    if($(".small-img img").eq(i).hasClass("active")){
+                        if(i == 0){
+                            $(".small-img img").eq(0).removeClass("active");
+                            $(".small-img img").eq(4).addClass("active");
+                            var current_hover_img = $(".small-img img").eq(4).attr("src");
+                            $(".focus-view").attr("src",$(".small-img img").eq(4).attr("src"));
+                        }else{ 
+                            $(".small-img img").eq(i).removeClass("active");
+                            $(".small-img img").eq(i-1).addClass("active");
+                            var current_hover_img = $(".small-img img").eq(i-1).attr("src");
+                            $(".focus-view").attr("src",current_hover_img);
+                            return false;
+                        }
+                    }
+                }
+            });
+           
+           $(".right").click(function(){
+                for(var i = 0; i < $(".small-img img").length; i++){
+                    if($(".small-img img").eq(i).hasClass("active")){
+                        if(i == can_img.length - 1){
+                            $(".small-img img").eq(4).removeClass("active");
+                            $(".small-img img").eq(0).addClass("active");
+                            var current_hover_img = $(".small-img img").eq(0).attr("src");
+                            $(".focus-view").attr("src",$(".small-img img").eq(0).attr("src"));
+                        }else{   
+                            $(".small-img img").eq(i).removeClass("active");
+                            $(".small-img img").eq(i+1).addClass("active");
+                            var current_hover_img = $(".small-img img").eq(i+1).attr("src");
+                            $(".focus-view").attr("src",$(".small-img img").eq(i+1).attr("src"));
+                            return false;
+                        }
+                    }
+                }
+           });
+
+            function show_html($this){
+                alert($($this).html());
+            }
+           $(".baobao button").click(function(){
+                show_html(this);
+           });
+        });
+    </script>
+
+</body>
+</html>
